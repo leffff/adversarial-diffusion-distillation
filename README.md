@@ -1,6 +1,6 @@
 # adversarial-diffusion-distillation
 My Implementation of Adversarial Diffusion Distillation https://arxiv.org/pdf/2311.17042.pdf
-![Model scheme](scheme.png)
+![Model scheme](images/scheme.png)
 
 # Warning
 This implementation differs from the original implementation in the paper in following ways:
