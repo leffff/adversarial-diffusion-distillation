@@ -31,7 +31,7 @@ def train_epoch(S, T, D, S_optimizer, D_optimizer, accelerator, adversarial_loss
         L_G_adv = adversarial_loss(D(x_theta), target_real)
 
         # Foward diffusion process on an image denoised by ADD-student
-        xt, t = forward_diffusion_process(x, noise_scheduler, num_timesteps=num_teacher_timesteps)
+        xt, t = forward_diffusion_process(x_theta, noise_scheduler, num_timesteps=num_teacher_timesteps)
         with torch.no_grad():
             x_psi = backward_diffusion_process(xt, t, labels, T, noise_scheduler, num_timesteps=num_teacher_timesteps)
 
