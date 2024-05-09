@@ -41,3 +41,24 @@ def backward_diffusion_process(x, t, y, model, noise_scheduler, device: str = "c
         x = noise_scheduler.step(noise_pred, t, x).prev_sample
 
     return x
+
+
+def one_step_backward_diffusion_process(x, t, y, model, noise_scheduler, device: str = "cuda", num_timesteps: int = 1000):
+    bs = x.shape[0]
+    noise_scheduler.set_timesteps(num_inference_steps=num_timesteps)
+    
+    model_input = noise_scheduler.scale_model_input(x, t)
+
+    t_batch = torch.full(
+        size=(bs,), 
+        fill_value=t.item(), 
+        dtype=torch.long
+    ).to(device)
+
+    noise_pred = model(
+        model_input, t_batch, y, return_dict=False
+    )[0]
+
+    x = noise_scheduler.step(noise_pred, t, x).pred_original_sample
+
+    return x
