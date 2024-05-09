@@ -27,13 +27,13 @@ def train_epoch(S, T, D, S_optimizer, D_optimizer, accelerator, adversarial_loss
         # Train ADD-student
         # Backward diffusion process on noised image, using noisy_images and t
         S_optimizer.zero_grad()
-        x_theta = backward_diffusion_process(xs, s, labels, S, noise_scheduler, num_timesteps=num_student_timesteps)
+        x_theta = one_step_backward_diffusion_process(xs, s, labels, S, noise_scheduler, num_timesteps=num_student_timesteps)
         L_G_adv = adversarial_loss(D(x_theta), target_real)
 
         # Foward diffusion process on an image denoised by ADD-student
         xt, t = forward_diffusion_process(x_theta, noise_scheduler, num_timesteps=num_teacher_timesteps)
         with torch.no_grad():
-            x_psi = backward_diffusion_process(xt, t, labels, T, noise_scheduler, num_timesteps=num_teacher_timesteps)
+            x_psi = one_step_backward_diffusion_process(xt, t, labels, T, noise_scheduler, num_timesteps=num_teacher_timesteps)
 
         с = 1 / (t + 1)
         d = reconstruction_loss(x_theta, x_psi) * с # * c(t), where c(t) = a_t
