@@ -1,4 +1,20 @@
 # adversarial-diffusion-distillation
+
+Please refer to this repository: for better implementation: https://github.com/leffff/FlowModels
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
 My Implementation of Adversarial Diffusion Distillation https://arxiv.org/pdf/2311.17042.pdf
 ![Model scheme](images/scheme.png)
 
